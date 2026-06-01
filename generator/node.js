@@ -56,7 +56,7 @@ const getContactInfo = (section) =>{
         ${section.phone ? `
           <a href="tel:${section.phone}">
           <div class="contact-card">
-            <span class="card-label">LINKEDIN</span>
+            <span class="card-label">PHONE</span>
             ${section.phone} ↗
             </div></a>` : ''}
       </div>
@@ -90,6 +90,14 @@ const generateMainContent = (sections) => {
     const clickableClass = section.url ? ' clickable-card' : '';
 
     if (section.type === 'text-only') {
+      if(section.tags){
+        const tagsHtml= section.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('\n');
+        return `
+          <${tag}${hrefAttr} class="text-block size-${section.size}${clickableClass}">
+            ${section.text}
+            <div class="showcase-tags">${tagsHtml}</div>
+          </${tag}>`;
+      }
       return `
       <${tag}${hrefAttr} class="text-block size-${section.size}${clickableClass}">
         ${section.text}
@@ -98,6 +106,17 @@ const generateMainContent = (sections) => {
     
     if (section.type === 'text-and-image') {
       const layoutClasses = `desktop-img-${section.desktopImg} mobile-img-${section.mobileImg}`;
+      if(section.tags){
+        const tagsHtml= section.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('\n');
+        return `
+          <${tag}${hrefAttr} class="flex-block ${layoutClasses}${clickableClass}">
+            <img src="${section.imageUrl}" alt="Portfolio Image" class="block-image" />
+            <div class="block-text">
+              ${section.text}
+              <div class="showcase-tags">${tagsHtml}</div>
+            </div>
+          </${tag}>`;
+      }     
       return `
       <${tag}${hrefAttr} class="flex-block ${layoutClasses}${clickableClass}">
         <img src="${section.imageUrl}" alt="Portfolio Image" class="block-image" />
@@ -109,8 +128,23 @@ const generateMainContent = (sections) => {
 
     if (section.type === 'project-showcase') {
       const listHtml = section.highlights.map(item => `<li>${item}</li>`).join('\n');
-      const tagsHtml = section.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('\n');
-
+      if(section.tags){
+        const tagsHtml= section.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('\n');
+        return `
+          <${tag}${hrefAttr} class="project-showcase-block${clickableClass}">
+            <div class="showcase-image-container">
+              <img src="${section.imageUrl}" alt="${section.title}" class="showcase-img" />
+            </div>
+            <div class="showcase-text-container">
+              <h2 class="showcase-title">${section.title}</h2>
+              <h3 class="showcase-label">OBJECTIVE</h3>
+              <p class="showcase-paragraph">${section.objective}</p>
+              <h3 class="showcase-label">ENGINEERING HIGHLIGHTS</h3>
+              <ul class="showcase-list">${listHtml}</ul>
+              <div class="showcase-tags">${tagsHtml}</div>
+            </div>
+          </${tag}>`;
+      }
       return `
       <${tag}${hrefAttr} class="project-showcase-block${clickableClass}">
         <div class="showcase-image-container">
@@ -122,9 +156,9 @@ const generateMainContent = (sections) => {
           <p class="showcase-paragraph">${section.objective}</p>
           <h3 class="showcase-label">ENGINEERING HIGHLIGHTS</h3>
           <ul class="showcase-list">${listHtml}</ul>
-          <div class="showcase-tags">${tagsHtml}</div>
         </div>
       </${tag}>`;
+      
     }
 
     if (section.type === 'contact-page') {
@@ -219,21 +253,24 @@ const userData = {
     { 
       type: 'text-only', 
       text: 'Welcome to my portfolio!', 
-      size: 'large' 
+      size: 'large' ,
+      tags: ['PYTHON', 'NEXTJS']
     },
     { 
       type: 'text-and-image', 
       text: 'I am a passionate web developer with 5 years of experience.', 
       imageUrl: 'images/profile.jpg',
       desktopImg: 'right', 
-      mobileImg: 'top'    
+      mobileImg: 'top'    ,
+      tags: ['PYTHON', 'NEXTJS']
     },
     { 
       type: 'text-and-image', 
       text: 'I am a passionate web developer with 5 years of experience.', 
       imageUrl: 'images/profile.jpg',
       desktopImg: 'left', 
-      mobileImg: 'top'    
+      mobileImg: 'top'    ,
+      tags: ['PYTHON', 'NEXTJS']
     },
     {
       type: 'project-showcase',
@@ -253,7 +290,8 @@ const userData = {
       imageUrl: 'images/profile.jpg',
       desktopImg: 'left', 
       mobileImg: 'top',
-      url: 'https://example.com' // If this exists, the whole card becomes a link!
+      url: 'https://example.com', // If this exists, the whole card becomes a link!,
+      tags: ['PYTHON', 'NEXTJS']
     }
   ]
 };
@@ -280,7 +318,7 @@ const contactData = [
     // Titles for the two sides of the layout
     formTitle: 'Send me a message',
     infoTitle: 'My Details',
-    if_message: false,
+    if_message: true,
     
     // Optional contact information (all will be rendered as functional links)
     email: 'jane@example.com',
