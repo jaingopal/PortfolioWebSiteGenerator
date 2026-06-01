@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Jane Doe's Portfolio</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+
+  <nav class="navbar">
+    <div class="nav-name">Jane Doe</div>
+    
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+
+    <div class="nav-menu" id="nav-menu">
+      <ul class="nav-links">
+        <li><a href="./work.html">Work</a></li>
+      <li><a href="./about.html">About</a></li>
+      <li><a href="./contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-availability status-available">
+        <span class="status-dot"></span>
+        Available for work
+      </div>
+    </div>
+  </nav>
+  
+
+  <main class="content">
+    
+      <div class="text-block size-large">
+        Welcome to my portfolio!
+      </div>
+
+      <div class="flex-block desktop-img-right mobile-img-top">
+        <img src="images/profile.jpg" alt="Portfolio Image" class="block-image" />
+        <div class="block-text">
+          I am a passionate web developer with 5 years of experience.
+        </div>
+      </div>
+
+      <div class="flex-block desktop-img-left mobile-img-top">
+        <img src="images/profile.jpg" alt="Portfolio Image" class="block-image" />
+        <div class="block-text">
+          I am a passionate web developer with 5 years of experience.
+        </div>
+      </div>
+
+      <div class="project-showcase-block">
+        <div class="showcase-image-container">
+          <img src="images/asrma-mockup.png" alt="ASRMA" class="showcase-img" />
+        </div>
+        <div class="showcase-text-container">
+          <h2 class="showcase-title">ASRMA</h2>
+          <h3 class="showcase-label">OBJECTIVE</h3>
+          <p class="showcase-paragraph">Automate end-to-end literature review workflows by orchestrating LLM-driven agents...</p>
+          <h3 class="showcase-label">ENGINEERING HIGHLIGHTS</h3>
+          <ul class="showcase-list"><li>Agent-driven pipeline integrating fetchers for PubMed, IEEE...</li>
+<li>RAG + vector-store pipeline enabling semantic full-text retrieval.</li>
+<li>Modular LLM provider and streaming chat support.</li></ul>
+          <div class="showcase-tags"><span class="project-tag">PYTHON</span>
+<span class="project-tag">FASTAPI</span>
+<span class="project-tag">RAG</span>
+<span class="project-tag">LANGCHAIN</span>
+<span class="project-tag">NEXTJS</span></div>
+        </div>
+      </div>
+
+      <a href="https://example.com" target="_blank" class="flex-block desktop-img-left mobile-img-top clickable-card">
+        <img src="images/profile.jpg" alt="Portfolio Image" class="block-image" />
+        <div class="block-text">
+          Check out my latest e-commerce build.
+        </div>
+      </a>
+  </main>
+
+
+  <footer class="footer">
+    <div class="footer-name">
+      © 2026 Jane Doe
+    </div>
+
+    <div class="footer-contact">
+      <a href="./contact.html" class="contact-btn">Contact Me</a>
+    </div>
+  </footer>
+  
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>
+  

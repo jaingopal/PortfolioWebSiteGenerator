@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Work</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+
+  <nav class="navbar">
+    <div class="nav-name">Jane Doe</div>
+    
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+
+    <div class="nav-menu" id="nav-menu">
+      <ul class="nav-links">
+        <li><a href="./work.html">Work</a></li>
+      <li><a href="./about.html">About</a></li>
+      <li><a href="./contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-availability status-available">
+        <span class="status-dot"></span>
+        Available for work
+      </div>
+    </div>
+  </nav>
+  
+
+  <main class="content">
+    
+      <div class="text-block size-large">
+        My Projects
+      </div>
+
+      <div class="project-showcase-block">
+        <div class="showcase-image-container">
+          <img src="images/asrma-mockup.png" alt="ASRMA" class="showcase-img" />
+        </div>
+        <div class="showcase-text-container">
+          <h2 class="showcase-title">ASRMA</h2>
+          <h3 class="showcase-label">OBJECTIVE</h3>
+          <p class="showcase-paragraph">Automate literature review workflows...</p>
+          <h3 class="showcase-label">ENGINEERING HIGHLIGHTS</h3>
+          <ul class="showcase-list"><li>Agent-driven pipeline</li>
+<li>RAG + vector-store</li></ul>
+          <div class="showcase-tags"><span class="project-tag">PYTHON</span>
+<span class="project-tag">NEXTJS</span></div>
+        </div>
+      </div>
+  </main>
+
+
+  <footer class="footer">
+    <div class="footer-name">
+      © 2026 Jane Doe
+    </div>
+
+    <div class="footer-contact">
+      <a href="./contact.html" class="contact-btn">Contact Me</a>
+    </div>
+  </footer>
+  
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>
+  
