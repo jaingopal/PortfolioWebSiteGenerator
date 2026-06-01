@@ -14,6 +14,11 @@ body {
   box-sizing: border-box; 
 }
 
+a{
+  color : black ; 
+  text-decoration: none;
+}
+
 .content {
   flex: 1; 
   
@@ -46,6 +51,11 @@ body {
   border-bottom-right-radius: 16px;
   
   transition: all 0.3s ease; 
+}
+
+.navbar a {
+  color: #333;
+  text-decoration: none;
 }
 
 .nav-menu {
@@ -468,4 +478,204 @@ a.clickable-card {
 a.clickable-card:hover {
   transform: translateY(-6px); /* Lifts the entire card up */
   box-shadow: 0 15px 40px rgba(0,0,0,0.12); /* Deepens the shadow underneath */
+}
+/* =========================================
+   6. CONTACT PAGE STYLING
+   ========================================= */
+
+.contact-section { 
+  max-width: 1200px; 
+  margin: 0 auto 80px auto; 
+  padding: 0 20px; 
+}
+
+.contact-header { 
+  text-align: center; 
+  margin-bottom: 60px; 
+  font-size: 1.2rem; 
+  color: #525252; 
+  line-height: 1.6;
+}
+
+.contact-page-container { 
+  display: flex; 
+  gap: 60px; 
+  box-sizing: border-box;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: flex-start; /* Aligns to top if one side is taller */
+}
+
+/* --- Base Wrappers --- */
+.contact-form-wrapper {
+  flex: 2;
+  width: 100%;
+  background-color: #ffffff; 
+  padding: 40px; 
+  border-radius: 16px; 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+  box-sizing: border-box;
+}
+
+.contact-info-wrapper { 
+  flex: 1;
+  width: 100%;
+  background-color: #ffffff; 
+  padding: 40px; 
+  border-radius: 16px; 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+  box-sizing: border-box;
+}
+
+/* --- The Magic Standalone Rules --- */
+/* Centers and limits the width to 700px if the form is the ONLY item generated */
+.contact-form-wrapper:only-child {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Centers and limits the width to 500px if the info is the ONLY item generated */
+.contact-info-wrapper:only-child {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* --- Headings --- */
+.contact-form-wrapper h2 {
+  font-size: 2.2rem;
+  color: #171717;
+  font-weight: 700;
+  margin-bottom: 30px;
+  margin-top: 0;
+}
+
+.contact-info-wrapper h2 {
+  font-size: 1.5rem;
+  color: #171717;
+  font-weight: 700;
+  margin-bottom: 30px;
+  margin-top: 0;
+}
+
+/* --- Form Styling (Your Colors) --- */
+.contact-form { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 20px; 
+}
+
+.contact-form input, 
+.contact-form textarea { 
+  padding: 14px 16px; 
+  border-radius: 8px; 
+  border: 1px solid #e5e7eb; 
+  width: 100%; 
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 1rem;
+  color: #333333;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: #999999;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #059669; /* Your Green focus border */
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1); /* Soft green glow */
+}
+
+.contact-form textarea {
+  resize: vertical;
+  min-height: 140px;
+}
+
+.contact-form .contact-btn {
+  margin-top: 10px;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 14px 24px;
+  background-color: #111827; 
+  color: #ffffff;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.contact-form .contact-btn:hover {
+  background-color: #374151;
+}
+
+/* --- Contact Info Cards (Your Colors) --- */
+.contact-info-list { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 20px; 
+}
+
+.contact-card {
+  padding: 20px;
+  background-color: #f9f9f9; /* Your Light background */
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+  text-decoration: none; 
+}
+
+.contact-card:hover {
+  background-color: #ffffff;
+  border-color: #059669; /* Green border on hover */
+  box-shadow: 0 4px 15px rgba(5, 150, 105, 0.08); /* Green tinted shadow */
+}
+
+.card-label {
+  display: block;
+  font-size: 0.75rem;
+  color: #059669; /* Green labels */
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.contact-card a { 
+  color: #171717; 
+  text-decoration: none; 
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+  display: inline-block;
+}
+
+/* Forces the link and icon text to turn green together when the card is hovered */
+.contact-card:hover a {
+  color: #059669;
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) { 
+  .contact-page-container { 
+    flex-direction: column; 
+    gap: 30px;
+    padding: 20px 0;
+  }
+  
+  .contact-form-wrapper h2, 
+  .contact-info-wrapper h2 {
+    font-size: 1.25rem;
+  }
+
+  /* Make sure standalone elements expand back out on mobile screens */
+  .contact-form-wrapper:only-child,
+  .contact-info-wrapper:only-child {
+    max-width: 100%;
+  }
 }

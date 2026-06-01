@@ -10,7 +10,7 @@ const generateNavbar = (userData) => {
 
   return `
   <nav class="navbar">
-    <div class="nav-name">${userData.name}</div>
+    <a class="nav-name" href = ./index.html>${userData.name}</a>
     
     <div class="hamburger" id="hamburger">
       <span></span><span></span><span></span>
@@ -28,6 +28,58 @@ const generateNavbar = (userData) => {
   </nav>
   `;
 };
+
+const getContactInfo = (section) =>{
+  if (section.email || section.phone || section.linkedin || section.github) {
+    return `
+    <div class="contact-info-wrapper">
+      <h2>${section.infoTitle || "Get in Touch"}</h2>
+      <div class="contact-info-list">
+        ${section.email ? `
+          <a href="mailto:${section.email}">
+          <div class="contact-card">
+            <span class="card-label">EMAIL</span>
+            ${section.email} ↗
+          </div></a>` : ''}
+        ${section.github ? `
+          <a href="${section.github}" target="_blank">
+          <div class="contact-card">
+            <span class="card-label">GITHUB</span>
+            github.com/${section.github.split('/').pop()} ↗
+          </div></a>` : ''}
+        ${section.linkedin ? `
+          <a href= "${section.linkedin}" target = "_blank">
+          <div class="contact-card">
+            <span class="card-label">LINKEDIN</span>
+            linkedin.com/in/${section.linkedin.split('/').pop()} ↗
+            </div></a>` : ''}
+        ${section.phone ? `
+          <a href="tel:${section.phone}">
+          <div class="contact-card">
+            <span class="card-label">LINKEDIN</span>
+            ${section.phone} ↗
+            </div></a>` : ''}
+      </div>
+    </div>`;
+  }
+  return ``;
+}
+
+const getMessage = (section) =>{
+  if(section.if_message){
+    return `<div class="contact-form-wrapper">
+            <h2>${section.formTitle || "Send me a message"}</h2>
+            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form">
+              <input type="text" name="name" placeholder="Your Name" required />
+              <input type="text" name="subject" placeholder="Subject" required />
+              <textarea name="message" placeholder="Your Message" required></textarea>
+              <button type="submit" class="contact-btn">Send Message</button>
+            </form>
+          </div>
+          `
+  }
+  return ``;
+}
 
 const generateMainContent = (sections) => {
   // console.log(sections);
@@ -73,6 +125,16 @@ const generateMainContent = (sections) => {
           <div class="showcase-tags">${tagsHtml}</div>
         </div>
       </${tag}>`;
+    }
+
+    if (section.type === 'contact-page') {
+      return `
+      <div class="contact-section">
+        ${section.text ? `<div class="contact-header">${section.text}</div>` : ''}
+        <div class="contact-page-container">
+        `+getMessage(section)+getContactInfo(section)+
+        `</div>
+      </div>`;
     }
   });
 
@@ -209,6 +271,24 @@ const worksData = [
     tags: ['PYTHON', 'NEXTJS']
   }
 ];
+const contactData = [
+  { 
+    type: 'contact-page',
+    // Optional header text at the top
+    text: 'I am currently accepting freelance projects. Feel free to reach out!',
+    
+    // Titles for the two sides of the layout
+    formTitle: 'Send me a message',
+    infoTitle: 'My Details',
+    if_message: false,
+    
+    // Optional contact information (all will be rendered as functional links)
+    email: 'jane@example.com',
+    phone: '+1 234 567 890',
+    linkedin: 'https://linkedin.com/in/janedoe',
+    github: 'https://github.com/janedoe'
+  }
+];
 
 const navbarHtml = generateNavbar(userData);
 const footerHtml = generateFooter(userData);
@@ -226,3 +306,4 @@ const writeInHtml = (navbarHtml,footerHtml,sections,title,filename) =>{
 
 writeInHtml(navbarHtml,footerHtml,userData.sections,userData.name+"'s Portfolio","index.html")
 writeInHtml(navbarHtml,footerHtml,worksData,"Work","work.html")
+writeInHtml(navbarHtml,footerHtml,contactData,"Contact","contact.html")
