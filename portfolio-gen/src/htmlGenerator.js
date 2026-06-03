@@ -1,5 +1,5 @@
 // Function to generate the Navbar HTML
-const generateNavbar = (userData) => {
+export const generateNavbar = (userData) => {
   const safeLinks = userData.links || [];
   const linksHtml = safeLinks.map(link => {
     return `<li><a href="${link.url}">${link.label}</a></li>`;
@@ -10,7 +10,7 @@ const generateNavbar = (userData) => {
 
   return `
   <nav class="navbar">
-    <a class="nav-name" href = ./index.html>${userData.name}</a>
+    <a class="nav-name" href="./index.html">${userData.name}</a>
     
     <div class="hamburger" id="hamburger">
       <span></span><span></span><span></span>
@@ -81,64 +81,63 @@ const getMessage = (section) =>{
   return ``;
 }
 
-const generateMainContent = (sections) => {
-  // console.log(sections);
+export const generateMainContent = (sections, isPreview = false) => {
   const htmlBlocks = sections.map(section => {
     
-    const tag = section.url ? 'a' : 'div';
-    const hrefAttr = section.url ? ` href="${section.url}" target="_blank"` : '';
-    const clickableClass = section.url ? ' clickable-card' : '';
+    const tag = section.link ? 'a' : 'div';
+    const hrefAttr = section.link ? ` href="${section.link}" target="_blank"` : '';
+    const clickableClass = section.link ? ' clickable-card' : '';
 
     if (section.type === 'text-only') {
-      if(section.tags){
+      if(section.tags && section.tags.length > 0){
         const tagsHtml= section.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('\n');
         return `
-          <${tag}${hrefAttr} class="text-block size-${section.size}${clickableClass}">
-            ${section.text}
+          <${tag}${hrefAttr} class="text-block size-${section.size || 'large'}${clickableClass}">
+            ${section.content}
             <div class="showcase-tags">${tagsHtml}</div>
           </${tag}>`;
       }
       return `
-      <${tag}${hrefAttr} class="text-block size-${section.size}${clickableClass}">
-        ${section.text}
+      <${tag}${hrefAttr} class="text-block size-${section.size || 'large'}${clickableClass}">
+        ${section.content}
       </${tag}>`;
     } 
     
-    if (section.type === 'text-and-image') {
-      const layoutClasses = `desktop-img-${section.desktopImg} mobile-img-${section.mobileImg}`;
-      if(section.tags){
+    if (section.type === 'text-image') {
+      const layoutClasses = `desktop-img-top mobile-img-top`; // Simplify layout for now
+      if(section.tags && section.tags.length > 0){
         const tagsHtml= section.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('\n');
         return `
           <${tag}${hrefAttr} class="flex-block ${layoutClasses}${clickableClass}">
-            <img src="${section.imageUrl}" alt="Portfolio Image" class="block-image" />
+            <img src="${section.image ? (isPreview ? URL.createObjectURL(section.image) : 'images/' + section.image.name) : 'placeholder.jpg'}" alt="Portfolio Image" class="block-image" />
             <div class="block-text">
-              ${section.text}
+              ${section.content}
               <div class="showcase-tags">${tagsHtml}</div>
             </div>
           </${tag}>`;
       }     
       return `
       <${tag}${hrefAttr} class="flex-block ${layoutClasses}${clickableClass}">
-        <img src="${section.imageUrl}" alt="Portfolio Image" class="block-image" />
+        <img src="${section.image ? (isPreview ? URL.createObjectURL(section.image) : 'images/' + section.image.name) : 'placeholder.jpg'}" alt="Portfolio Image" class="block-image" />
         <div class="block-text">
-          ${section.text}
+          ${section.content}
         </div>
       </${tag}>`;
     }
 
-    if (section.type === 'project-showcase') {
-      const listHtml = section.highlights.map(item => `<li>${item}</li>`).join('\n');
-      if(section.tags){
+    if (section.type === 'project') {
+      const listHtml = section.highlights ? section.highlights.map(item => `<li>${item}</li>`).join('\n') : '';
+      if(section.tags && section.tags.length > 0){
         const tagsHtml= section.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('\n');
         return `
           <${tag}${hrefAttr} class="project-showcase-block${clickableClass}">
             <div class="showcase-image-container">
-              <img src="${section.imageUrl}" alt="${section.title}" class="showcase-img" />
+              <img src="${section.image ? (isPreview ? URL.createObjectURL(section.image) : 'images/' + section.image.name) : 'placeholder.jpg'}" alt="${section.title}" class="showcase-img" />
             </div>
             <div class="showcase-text-container">
               <h2 class="showcase-title">${section.title}</h2>
               <h3 class="showcase-label">OBJECTIVE</h3>
-              <p class="showcase-paragraph">${section.objective}</p>
+              <div class="showcase-paragraph">${section.content}</div>
               <h3 class="showcase-label">ENGINEERING HIGHLIGHTS</h3>
               <ul class="showcase-list">${listHtml}</ul>
               <div class="showcase-tags">${tagsHtml}</div>
@@ -148,12 +147,12 @@ const generateMainContent = (sections) => {
       return `
       <${tag}${hrefAttr} class="project-showcase-block${clickableClass}">
         <div class="showcase-image-container">
-          <img src="${section.imageUrl}" alt="${section.title}" class="showcase-img" />
+          <img src="${section.image ? (isPreview ? URL.createObjectURL(section.image) : 'images/' + section.image.name) : 'placeholder.jpg'}" alt="${section.title}" class="showcase-img" />
         </div>
         <div class="showcase-text-container">
           <h2 class="showcase-title">${section.title}</h2>
           <h3 class="showcase-label">OBJECTIVE</h3>
-          <p class="showcase-paragraph">${section.objective}</p>
+          <div class="showcase-paragraph">${section.content}</div>
           <h3 class="showcase-label">ENGINEERING HIGHLIGHTS</h3>
           <ul class="showcase-list">${listHtml}</ul>
         </div>
@@ -176,7 +175,7 @@ const generateMainContent = (sections) => {
 };
 
 // Function to generate the Footer HTML
-const generateFooter = (userData) => {
+export const generateFooter = (userData) => {
   const currentYear = new Date().getFullYear();
 
   return `
@@ -194,10 +193,32 @@ const generateFooter = (userData) => {
 
 
 // The Master Function that builds the complete HTML file
-const buildFullPage = (sections,navbarHtml,footerHtml,title) => {
+export const buildFullPage = (sections,navbarHtml,footerHtml,title, isPreview = false, rawCss = '') => {
   
+  let pageContentHtml = '';
+  if (sections && sections.length > 0) {
+    pageContentHtml = generateMainContent(sections, isPreview);
+  }
 
-  const pageContentHtml = generateMainContent(sections);
+  const cssTag = isPreview && rawCss 
+    ? `<style>${rawCss}</style>` 
+    : '<link rel="stylesheet" href="./style.css">';
+
+  const previewScript = isPreview ? `
+  <script>
+    document.addEventListener('click', function(e) {
+      const link = e.target.closest('a');
+      if (link) {
+        const href = link.getAttribute('href');
+        if (href && href.endsWith('.html')) {
+          e.preventDefault();
+          const pageName = href.replace('./', '');
+          window.parent.postMessage({ type: 'NAVIGATE', page: pageName }, '*');
+        }
+      }
+    });
+  </script>
+  ` : '';
 
   return `
 <!DOCTYPE html>
@@ -207,7 +228,7 @@ const buildFullPage = (sections,navbarHtml,footerHtml,title) => {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>${title}</title>
-  <link rel="stylesheet" href="./style.css">
+  ${cssTag}
 </head>
 <body>
 
@@ -227,121 +248,72 @@ ${footerHtml}
       navMenu.classList.toggle('active');
     });
   </script>
-
+${previewScript}
 </body>
 </html>
   `;
 };
 
-const fs = require('fs');
+export const generatePreviewPages = (portfolioData, styleCss) => {
+  const userData = {
+    name: portfolioData.name || 'My Portfolio',
+    is_avail: true,
+    links: [
+      { label: 'Home', url: './index.html' },
+      ...portfolioData.pages.map(p => ({ label: p, url: `./${p.toLowerCase().replace(/\s+/g, '-')}.html` }))
+    ]
+  };
+  const navbarHtml = generateNavbar(userData);
+  const footerHtml = generateFooter(userData);
+  const pages = {};
 
+  const indexSections = [];
+  if (portfolioData.heroText) indexSections.push({ type: 'text-only', content: portfolioData.heroText });
+  indexSections.push(...portfolioData.sections);
+  
+  pages['index.html'] = buildFullPage(indexSections, navbarHtml, footerHtml, `${userData.name} - Home`, true, styleCss);
 
-// 2. The data for the user
-const userData = {
-  name: "Jane Doe",
-  is_avail: true, // For the green/red navbar badge
-  
-  // 1. The Navbar Links (This was missing!)
-  links: [
-    { label: "Work", url: "./work.html" },
-    { label: "About", url: "./about.html" },
-    { label: "Contact", url: "./contact.html" }
-  ],
-  
-  // 2. The Main Content Sections
-  sections: [
-    { 
-      type: 'text-only', 
-      text: 'Welcome to my portfolio!', 
-      size: 'large' ,
-      tags: ['PYTHON', 'NEXTJS']
-    },
-    { 
-      type: 'text-and-image', 
-      text: 'I am a passionate web developer with 5 years of experience.', 
-      imageUrl: 'images/profile.jpg',
-      desktopImg: 'right', 
-      mobileImg: 'top'    ,
-      tags: ['PYTHON', 'NEXTJS']
-    },
-    { 
-      type: 'text-and-image', 
-      text: 'I am a passionate web developer with 5 years of experience.', 
-      imageUrl: 'images/profile.jpg',
-      desktopImg: 'left', 
-      mobileImg: 'top'    ,
-      tags: ['PYTHON', 'NEXTJS']
-    },
-    {
-      type: 'project-showcase',
-      title: 'ASRMA',
-      imageUrl: 'images/asrma-mockup.png', // The image on the left
-      objective: 'Automate end-to-end literature review workflows by orchestrating LLM-driven agents...',
-      highlights: [
-        'Agent-driven pipeline integrating fetchers for PubMed, IEEE...',
-        'RAG + vector-store pipeline enabling semantic full-text retrieval.',
-        'Modular LLM provider and streaming chat support.'
-      ],
-      tags: ['PYTHON', 'FASTAPI', 'RAG', 'LANGCHAIN', 'NEXTJS']
-    },
-    { 
-      type: 'text-and-image', 
-      text: 'Check out my latest e-commerce build.', 
-      imageUrl: 'images/profile.jpg',
-      desktopImg: 'left', 
-      mobileImg: 'top',
-      url: 'https://example.com', // If this exists, the whole card becomes a link!,
-      tags: ['PYTHON', 'NEXTJS']
-    }
-  ]
+  portfolioData.pages.forEach(pageName => {
+    if (pageName === 'Contact') return;
+    const sections = portfolioData.pageSections[pageName] || [];
+    pages[`${pageName.toLowerCase().replace(/\s+/g, '-')}.html`] = buildFullPage(sections, navbarHtml, footerHtml, `${userData.name} - ${pageName}`, true, styleCss);
+  });
+
+  if (portfolioData.pages.includes('Contact')) {
+    pages['contact.html'] = buildFullPage([{ type: 'contact-page', ...portfolioData.contact }], navbarHtml, footerHtml, `${userData.name} - Contact`, true, styleCss);
+  }
+  pages['style.css'] = styleCss;
+  return pages;
 };
 
+export const generateExportPages = (portfolioData, styleCss) => {
+  const userData = {
+    name: portfolioData.name || 'My Portfolio',
+    is_avail: true,
+    links: [
+      { label: 'Home', url: './index.html' },
+      ...portfolioData.pages.map(p => ({ label: p, url: `./${p.toLowerCase().replace(/\s+/g, '-')}.html` }))
+    ]
+  };
+  const navbarHtml = generateNavbar(userData);
+  const footerHtml = generateFooter(userData);
+  const pages = {};
 
+  const indexSections = [];
+  if (portfolioData.heroText) indexSections.push({ type: 'text-only', content: portfolioData.heroText });
+  indexSections.push(...portfolioData.sections);
+  
+  pages['index.html'] = buildFullPage(indexSections, navbarHtml, footerHtml, `${userData.name} - Home`, false);
 
-const worksData = [
-  { type: 'text-only', text: 'My Projects', size: 'large' },
-  { 
-    type: 'project-showcase', 
-    title: 'ASRMA',
-    imageUrl: 'images/asrma-mockup.png',
-    objective: 'Automate literature review workflows...',
-    highlights: ['Agent-driven pipeline', 'RAG + vector-store'],
-    tags: ['PYTHON', 'NEXTJS']
+  portfolioData.pages.forEach(pageName => {
+    if (pageName === 'Contact') return;
+    const sections = portfolioData.pageSections[pageName] || [];
+    pages[`${pageName.toLowerCase().replace(/\s+/g, '-')}.html`] = buildFullPage(sections, navbarHtml, footerHtml, `${userData.name} - ${pageName}`, false);
+  });
+
+  if (portfolioData.pages.includes('Contact')) {
+    pages['contact.html'] = buildFullPage([{ type: 'contact-page', ...portfolioData.contact }], navbarHtml, footerHtml, `${userData.name} - Contact`, false);
   }
-];
-const contactData = [
-  { 
-    type: 'contact-page',
-    // Optional header text at the top
-    text: 'I am currently accepting freelance projects. Feel free to reach out!',
-    
-    // Titles for the two sides of the layout
-    formTitle: 'Send me a message',
-    infoTitle: 'My Details',
-    if_message: true,
-    
-    // Optional contact information (all will be rendered as functional links)
-    email: 'jane@example.com',
-    phone: '+1 234 567 890',
-    linkedin: 'https://linkedin.com/in/janedoe',
-    github: 'https://github.com/janedoe'
-  }
-];
-
-const navbarHtml = generateNavbar(userData);
-const footerHtml = generateFooter(userData);
-
-const writeInHtml = (navbarHtml,footerHtml,sections,title,filename) =>{
-  htmlCode = buildFullPage(sections,navbarHtml,footerHtml,title)
-  fs.writeFile(filename, htmlCode, (err) => {
-  if (err) {
-    console.error("Oops! Something went wrong:", err);
-  } else {
-    console.log("Success! The " + filename + " file has been automatically generated.");
-  }
-});
-}
-
-writeInHtml(navbarHtml,footerHtml,userData.sections,userData.name+"'s Portfolio","index.html")
-writeInHtml(navbarHtml,footerHtml,worksData,"Work","work.html")
-writeInHtml(navbarHtml,footerHtml,contactData,"Contact","contact.html")
+  pages['style.css'] = styleCss;
+  return pages;
+};
