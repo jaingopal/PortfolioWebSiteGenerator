@@ -1,0 +1,344 @@
+:root {
+  /* Slate & Midnight Blue Palette */
+  --bg-main: #0f172a;      /* slate-900 */
+  --bg-card: #1e293b;      /* slate-800 */
+  --bg-elevated: #334155;  /* slate-700 */
+  --bg-hover: #475569;     /* slate-600 */
+  
+  --text-main: #f8fafc;    /* slate-50 */
+  --text-muted: #94a3b8;   /* slate-400 */
+  
+  --border-color: #334155; /* slate-700 */
+  --border-focus: #6366f1; /* indigo-500 */
+  
+  /* Indigo/Purple Accent */
+  --accent: #6366f1;       /* indigo-500 */
+  --accent-hover: #4f46e5; /* indigo-600 */
+  
+  /* Danger (Red) */
+  --danger: #ef4444;       /* red-500 */
+  --danger-hover: #dc2626; /* red-600 */
+  --danger-bg: rgba(239, 68, 68, 0.1);
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.save-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--accent), #8b5cf6);
+  color: #ffffff;
+  box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.39);
+  transition: all 0.2s ease-in-out;
+}
+
+.save-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(99, 102, 241, 0.5);
+}
+
+.save-button:active {
+  transform: translateY(1px);
+}
+
+.delete-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  background-color: var(--danger-bg);
+  color: var(--danger);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  transition: all 0.2s ease-in-out;
+}
+
+.delete-button:hover {
+  background-color: var(--danger);
+  color: #ffffff;
+  transform: translateY(-1.5px);
+}
+
+.delete-button:active {
+  transform: translateY(1px);
+}
+
+.navbar-text-editor {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  background-color: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  z-index: 10;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.editor-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.button-group {
+  display: flex;
+  gap: 12px;
+}
+
+.pages-container {
+  background: var(--bg-card);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  margin-bottom: 20px;
+}
+
+.section-label {
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 12px;
+  display: block;
+}
+
+.pages-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+  margin-bottom: 16px;
+}
+
+.page-chip {
+  background: var(--bg-elevated);
+  color: var(--text-main);
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s;
+}
+
+.page-chip:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
+}
+
+.add-page-wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.page-input {
+  flex: 1;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  outline: none;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.page-input:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.add-btn {
+  padding: 10px 16px;
+  background-color: var(--bg-elevated);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.add-btn:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--text-muted);
+}
+
+.section-card {
+  background: var(--bg-card);
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-title-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.modern-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.modern-input:focus {
+  border-color: var(--border-focus);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.tag-container, .highlight-container {
+  margin-top: 20px;
+  padding: 15px;
+  background: var(--bg-elevated);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.tag-pill, .highlight-pill {
+  background: rgba(99, 102, 241, 0.15);
+  color: #a5b4fc; /* indigo-300 */
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+/* React Quill Dark Mode Overrides */
+.quill {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden; /* Prevents overflow outside the modal */
+}
+
+.ql-toolbar.ql-snow {
+  background-color: var(--bg-elevated);
+  border-color: var(--border-color) !important;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  flex-shrink: 0;
+}
+
+.ql-container.ql-snow {
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--bg-main);
+  border-color: var(--border-color) !important;
+  color: var(--text-main);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  min-height: 200px;
+}
+
+.ql-snow .ql-stroke {
+  stroke: var(--text-main) !important;
+}
+
+.ql-snow .ql-fill, .ql-snow .ql-stroke.ql-fill {
+  fill: var(--text-main) !important;
+}
+
+.ql-snow .ql-picker {
+  color: var(--text-main) !important;
+}
+
+.ql-snow .ql-picker-options {
+  background-color: var(--bg-elevated) !important;
+  border-color: var(--border-color) !important;
+}
+
+.ql-snow .ql-picker-item:hover {
+  color: var(--accent) !important;
+}
+
+/* Modal and Option Button Styling */
+@keyframes popIn {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.modal-content {
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.modal-option-btn {
+  padding: 15px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: var(--bg-elevated);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-option-btn:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--accent);
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+  transform: translateY(-2px);
+}
+
+.modal-option-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 5px rgba(99, 102, 241, 0.2);
+}
+
+.modal-cancel-btn {
+  margin-top: 20px;
+  padding: 10px;
+  color: var(--danger);
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+}
+
+.modal-cancel-btn:hover {
+  background-color: var(--danger-bg);
+  transform: scale(1.05);
+}
