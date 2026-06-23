@@ -1,16 +1,48 @@
-# React + Vite
+# Portfolio Website Generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React-based web application that allows users to easily build and generate their own portfolio websites through a simple, multi-step form. 
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Multi-Step Builder**: A streamlined 4-step process to input your details, configure pages, and design sections.
+- **Live Preview**: See your portfolio update in real-time within an interactive modal before finalizing.
+- **Customizable Sections**: Add and customize different sections like About, Projects, and Contact.
+- **Export to ZIP**: Once you are happy with the preview, the app generates static HTML/CSS files and packages them into a `.zip` file for easy deployment anywhere.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Framework**: [React](https://react.dev/) + [Vite](https://vitejs.dev/)
+- **Styling**: Vanilla CSS with custom properties for theming
+- **Rich Text Editing**: `react-quill-new` for editing section content
+- **File Generation**: `jszip` and `file-saver` for packaging and downloading the generated site
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerequisites
+Make sure you have Node.js and npm installed on your machine.
+
+### Installation
+
+1. Clone the repository and navigate to the project directory:
+   ```bash
+   cd portfolio_website_gen
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open your browser and navigate to `http://localhost:5173` (or the port specified in your terminal).
+
+## Usage
+
+1. **Step 1**: Enter basic information like your name and a hero text/tagline.
+2. **Step 2**: Configure the pages of your portfolio and manage navigation.
+3. **Step 3**: Add and customize specific sections for each page.
+4. **Final Step**: Review your portfolio using the "Open Live Preview" button and download your generated static files as a ZIP archive.
